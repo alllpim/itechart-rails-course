@@ -2,8 +2,8 @@ class PersonsController < ApplicationController
   def profile
   end
   class OrdersController < ApplicationController
-    before_filter :authenticate_user!, except => [:show, :index]
 
+    before_action :authenticate_user!, except: [:index, :show]
     def index
       # do something
     end
