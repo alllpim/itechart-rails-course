@@ -1,9 +1,10 @@
 class PeopleController < ApplicationController
-  before_action :set_person, only: %i[ show edit update destroy ]
+  before_action :set_person, only: [:show, :edit, :update, :destroy]
+  before_action :require_same_signed_user, only: %i[destroy edit update]
 
   # GET /people or /people.json
   def index
-    @people = Person.all
+    @people = current_user.person
   end
 
   # GET /people/1 or /people/1.json
@@ -22,6 +23,7 @@ class PeopleController < ApplicationController
   # POST /people or /people.json
   def create
     @person = Person.new(person_params)
+    @person.user = current_user
 
     respond_to do |format|
       if @person.save
@@ -61,6 +63,19 @@ class PeopleController < ApplicationController
     def set_person
       @person = Person.find(params[:id])
     end
+
+
+  def find_person
+    @person = Person.find(params[:id])
+  end
+
+  def require_same_signed_user
+    person = Person.find(params[:id])
+    return if current_user == person.user
+
+    flash[:alert] = 'You can only delete your own person'
+    redirect_to root_path
+  end
 
     # Only allow a list of trusted parameters through.
     def person_params

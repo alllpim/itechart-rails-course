@@ -1,6 +1,27 @@
-<h1>New Person</h1>
+<h2 class="ui center aligned icon header">
+  <i class="circular user plus icon"></i>
+  Create person
+</h2>
 
 
-<%= render 'form', person: @person %>
+<%= form_for :person do |f| %>
 
-<%= link_to 'Back', people_path %>
+  <div class="ui segment inverted">
+    <%= render "devise/shared/error_messages", resource: @person %>
+    <div class="ui form inverted">
+      <div class="field">
+        <%= f.label :type_name %>
+        <%= f.text_field :type_name, placeholder: 'title' %>
+      </div>
+      <div class="field">
+        <%= f.label :first_name %>
+        <%= f.text_field :first_name, placeholder: 'name' %>
+      </div>
+      <div class="field">
+        <%= f.label :last_name %>
+        <%= f.text_field :last_name, placeholder: 'lastname' %>
+      </div>
+      <%= f.submit "Create person", class: 'ui button'%>
+    </div>
+  </div>
+<% end %>
