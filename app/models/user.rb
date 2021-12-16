@@ -8,6 +8,6 @@ class User < ApplicationRecord
   after_create :create_person
 
   def create_person
-    Person.create(first_name: "first_name", last_name: "last_name", type_name: "type_name", created_at: Time.now, updated_at: Time.now, user_id: self.id)
+    Person.create(user_id: id, type_name: 'Me', first_name: 'Add your first name', last_name: 'Add your last name')
   end
 end

@@ -7,9 +7,8 @@ Rails.application.routes.draw do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
 
-  post '/people/new', to: 'person#create'
-
-  post '/people/:id/edit', to: 'person#update'
+  post '/people/new', to: 'people#create'
+  post '/people/:id/edit', to: 'people#update'
 
   #get 'person/:id'
   root 'home#index'
