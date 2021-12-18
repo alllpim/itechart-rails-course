@@ -25,7 +25,7 @@ class PeopleController < ApplicationController
     @person.user = current_user
     if @person.save
       flash[:notice] = 'Person was successfully created.'
-      redirect_to person_url
+      redirect_to people_url
     else
       render :new
     end
@@ -35,7 +35,7 @@ class PeopleController < ApplicationController
   def update
     if @person.update(person_params)
       flash[:notice] = 'Person updated successfully'
-      redirect_to person_url
+      redirect_to people_url
     else
       render :edit
     end
