@@ -1,5 +1,6 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
+  before_action :require_same_user, only: %i[destroy edit update]
 
   # GET /people or /people.json
   def index
@@ -43,11 +44,12 @@ class PeopleController < ApplicationController
 
   # DELETE /people/1 or /people/1.json
   def destroy
-    @person.destroy
-    respond_to do |format|
-      format.html { redirect_to people_url, notice: "Person was successfully destroyed." }
-      format.json { head :no_content }
+    if @person.destroy
+      flash[:notice] = 'Person deleted successfully'
+    else
+      flash[:alert] = 'Last person could not be deleted'
     end
+    redirect_to person_url
   end
 
   private
@@ -61,7 +63,17 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:id])
   end
 
+  def require_same_user
+    person = Person.find(params[:id])
+    return if current_user == person.user
 
+    flash[:alert] = 'You can only delete your own person'
+    redirect_to root_path
+  end
+
+  def finances_index
+    @finances = find_person.finances
+  end
     # Only allow a list of trusted parameters through.
     def person_params
       params.require(:person).permit(:first_name, :last_name, :type_name)

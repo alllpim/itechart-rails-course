@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_16_165535) do
+ActiveRecord::Schema.define(version: 2021_12_19_105954) do
 
   create_table "finances", force: :cascade do |t|
     t.string "name"
-    t.float "count"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "incomeOrExpence"
   end
 
   create_table "people", force: :cascade do |t|
@@ -26,6 +26,13 @@ ActiveRecord::Schema.define(version: 2021_12_16_165535) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "type_name"
     t.integer "user_id"
+  end
+
+  create_table "persons_finances", force: :cascade do |t|
+    t.integer "person_id"
+    t.integer "finance_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|

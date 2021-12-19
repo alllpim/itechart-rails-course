@@ -1,0 +1,27 @@
+<%= form_with(model: finance) do |f| %>
+  <% if finance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(finance.errors.count, "error") %> prohibited this person from being saved:</h2>
+
+      <ul>
+        <% finance.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="card-body">
+    <div class="card-body">
+      <div class="field form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name,autofocus: true, class:"form-control", placeholder: 'Type' %>
+      </div>
+      <div class="field form-group">
+        <%= f.label 'Expence' %>
+        <%= f.check_box :incomeOrExpence, placeholder: 'Expence' %>
+      </div>
+      <%= f.submit "Create finance", class: 'btn btn-secondary'%>
+    </div>
+  </div>
+<% end %>
