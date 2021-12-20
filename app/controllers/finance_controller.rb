@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 class FinanceController < ApplicationController
   before_action :finance_find, only: %i[edit update destroy]
+  before_action :require_same_user, only: %i[edit update destroy info]
 
   def new
     @finance = Finance.new
@@ -60,7 +63,7 @@ class FinanceController < ApplicationController
     finance = Finance.find(params[:id])
     return if current_user == finance.people.first.user
 
-    flash[:alert] = 'You must be the owner to do this.'
+    flash[:alert] = 'You can\'t do this'
     redirect_to root_path
   end
 end

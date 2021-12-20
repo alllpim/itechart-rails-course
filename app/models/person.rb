@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Person < ApplicationRecord
   validates :first_name, presence: true, length: { minimum: 3, maximum: 20 }
   validates :last_name, presence: true, length: { minimum: 3, maximum: 20 }
@@ -13,7 +15,6 @@ class Person < ApplicationRecord
     finance.people << self
     finance.save
   end
-
 
   def destroy
     return false if user.person.count == 1

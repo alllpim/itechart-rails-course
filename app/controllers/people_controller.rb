@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class PeopleController < ApplicationController
-  before_action :set_person, only: [:show, :edit, :update, :destroy]
+  before_action :set_person, only: %i[show edit update destroy]
   before_action :require_same_user, only: %i[destroy edit update]
 
   # GET /people or /people.json
@@ -8,8 +10,7 @@ class PeopleController < ApplicationController
   end
 
   # GET /people/1 or /people/1.json
-  def show
-  end
+  def show; end
 
   # GET /people/new
   def new
@@ -17,8 +18,7 @@ class PeopleController < ApplicationController
   end
 
   # GET /people/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /people or /people.json
   def create
@@ -47,17 +47,17 @@ class PeopleController < ApplicationController
     if @person.destroy
       flash[:notice] = 'Person deleted successfully'
     else
-      flash[:alert] = 'Last person could not be deleted'
+      flash[:alert] = 'You can\'t do this. It\'s your last person'
     end
     redirect_to person_url
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_person
-      @person = Person.find(params[:id])
-    end
 
+  # Use callbacks to share common setup or constraints between actions.
+  def set_person
+    @person = Person.find(params[:id])
+  end
 
   def find_person
     @person = Person.find(params[:id])
@@ -67,15 +67,16 @@ class PeopleController < ApplicationController
     person = Person.find(params[:id])
     return if current_user == person.user
 
-    flash[:alert] = 'You can only delete your own person'
+    flash[:alert] = 'You can\'t do this'
     redirect_to root_path
   end
 
   def finances_index
     @finances = find_person.finances
   end
-    # Only allow a list of trusted parameters through.
-    def person_params
-      params.require(:person).permit(:first_name, :last_name, :type_name)
-    end
+
+  # Only allow a list of trusted parameters through.
+  def person_params
+    params.require(:person).permit(:first_name, :last_name, :type_name)
+  end
 end
