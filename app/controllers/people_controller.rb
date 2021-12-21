@@ -11,8 +11,7 @@ class PeopleController < ApplicationController
   end
 
   # GET /people/1 or /people/1.json
-  def show
-  end
+  def show; end
 
   # GET /people/new
   def new
@@ -55,16 +54,14 @@ class PeopleController < ApplicationController
   end
 
   def find_person
-    if @person == nil
+    if @person.nil?
       redirect_to errors_not_found_path
     else
       @person = Person.find(params[:id])
     end
   end
 
-  def persons_finances
-
-  end
+  def persons_finances; end
 
   private
 
