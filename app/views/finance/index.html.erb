@@ -16,8 +16,8 @@
     <tr>
       <td><%= finance.name %></td>
       <td><%#= link_to 'Show', person %></td>
-      <td><%= link_to 'Edit', edit_finance_path(finance) %></td>
-      <td><%= link_to 'Delete', finance_path(finance), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td><%= link_to 'Edit', edit_finance_path(finance), class:'btn btn-secondary' %></td>
+      <td><%= link_to 'Delete', finance_path(finance), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger' %></td>
 
 
     </tr>
@@ -27,4 +27,4 @@
 
 <br>
 
-<%= link_to 'New Finance', new_finance_path %>
+<%= link_to 'New Finance', new_finance_path, class:'btn btn-primary' %>

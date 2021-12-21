@@ -18,8 +18,8 @@
     <div class="extra content">
       <div class="center aligned author">
 
-        <%=link_to 'Edit',edit_finance_path(finance) %>
-        <%=link_to 'Delete', finance_path(finance), method: :delete, data: { confirm: 'Are you sure?' }  %>
+        <%=link_to 'Edit',edit_finance_path(finance), class:'btn btn-secondary' %>
+        <%=link_to 'Delete', finance_path(finance), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger'  %>
       </div>
     </div>
   </div>

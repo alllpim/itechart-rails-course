@@ -19,10 +19,10 @@
         <td><%= person.last_name %></td>
         <td><%= person.type_name %></td>
         <td><%#= link_to 'Show', person %></td>
-        <td><%= link_to 'Edit', edit_person_path(person) %></td>
-        <td><%= link_to 'Delete', person_path(person), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><%= link_to 'Add finance category', new_finance_path(person) %></td>
-        <td><%= link_to 'Show Finances'%></td>
+        <td><%= link_to 'Edit', edit_person_path(person), class:'btn btn-secondary' %></td>
+        <td><%#= link_to 'Add finance category', new_finance_path(person) %></td>
+        <td><%= link_to 'Show Finances', people_persons_finances_path(person), class:'btn btn-secondary'%></td>
+        <td><%= link_to 'Delete', person_path(person), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger' %></td>
 
       </tr>
     <% end %>
@@ -31,4 +31,4 @@
 
 <br>
 
-<%= link_to 'New Person', new_person_path %>
+<%= link_to 'New Person', new_person_path, class:'btn btn-primary' %>

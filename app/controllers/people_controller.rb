@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class PeopleController < ApplicationController
-  before_action :find_person, only: %i[show edit update destroy]
+  before_action :find_person, only: %i[show edit update destroy persons_finances]
   before_action :require_same_user, only: %i[destroy edit update]
-  before_action :persons_finances, only: %i[show edit update destroy]
+  before_action :find_finance, only: %i[show edit update destroy persons_finances]
 
   # GET /people or /people.json
   def index
@@ -54,15 +54,23 @@ class PeopleController < ApplicationController
     redirect_to person_url
   end
 
+  def find_person
+    if @person == nil
+      redirect_to errors_not_found_path
+    else
+      @person = Person.find(params[:id])
+    end
+  end
+
+  def persons_finances
+
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
 
-  def find_person
-    @person = Person.find(params[:id])
-  end
-
-  def persons_finances
+  def find_finance
     @finances = find_person.finances
   end
 

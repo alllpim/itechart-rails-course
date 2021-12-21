@@ -13,8 +13,9 @@
             <%= f.label :name %>
             <%= f.text_field :name,autofocus: true, class:"form-control", placeholder: 'Type' %>
             <div class="field">
-              <%= f.label 'Expence' %>
-              <%= f.check_box :incomeOrExpence, placeholder: 'Expence' %>
+              <br>
+              <%= f.label 'Income' %>
+              <%= f.check_box :incomeOrExpence, placeholder: 'Income' %>
             </div>
             <%= f.label 'List of person' %>
             <%= f.collection_select(:id, current_user.person.order(:first_name),:id,:first_name, {:prompt => nil}, {:multiple => true}) %>

@@ -4,9 +4,10 @@
   <strong>Name:</strong>
   <%= @finance.name %>
 </p>
-
 <p>
+  <strong>Type:</strong>
+  <%= @finance.incomeOrExpence ? 'Income' : 'Expence'%>
+</p>
 
-
-<%= link_to 'Edit', edit_finance_path(@finance) %> |
-<%= link_to 'Back', finance_path %>
+<%= link_to 'Edit', edit_finance_path(@finance), class: 'btn btn-secondary' %> |
+<%= link_to 'Back', finances_path, class: 'btn btn-secondary' %>
