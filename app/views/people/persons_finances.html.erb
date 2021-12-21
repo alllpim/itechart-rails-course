@@ -1,9 +1,9 @@
 <h2 class="ui center aligned icon header">
   <i class="circular file alternate outline icon"></i>
-  Categories of <%#= @person.first_name %>
+  Categories of <%= @person.first_name %>
 
 </h2>
-<% Finance.all.each do |finance| %>
+<% @finances.each do |finance| %>
 
 
   <div class="card">

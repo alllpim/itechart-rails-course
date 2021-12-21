@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class FinanceController < ApplicationController
-  before_action :finance_find, only: %i[edit update destroy]
+  before_action :finance_find, only: %i[show edit update destroy]
   before_action :require_same_user, only: %i[edit update destroy info]
 
   def new
@@ -53,6 +53,10 @@ class FinanceController < ApplicationController
 
   def finance_params
     params.require(:finance).permit(:name, :incomeOrExpence)
+  end
+
+  def show
+    @finance = Finance.find_by(id: params[:id])
   end
 
   def finance_find

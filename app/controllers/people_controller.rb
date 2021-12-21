@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class PeopleController < ApplicationController
-  before_action :set_person, only: %i[show edit update destroy]
+  before_action :find_person, only: %i[show edit update destroy]
   before_action :require_same_user, only: %i[destroy edit update]
+  before_action :persons_finances, only: %i[show edit update destroy]
 
   # GET /people or /people.json
   def index
@@ -10,7 +11,8 @@ class PeopleController < ApplicationController
   end
 
   # GET /people/1 or /people/1.json
-  def show; end
+  def show
+  end
 
   # GET /people/new
   def new
@@ -26,7 +28,7 @@ class PeopleController < ApplicationController
     @person.user = current_user
     if @person.save
       flash[:notice] = 'Person was successfully created.'
-      redirect_to people_url
+      redirect_to person_url
     else
       render :new
     end
@@ -55,12 +57,13 @@ class PeopleController < ApplicationController
   private
 
   # Use callbacks to share common setup or constraints between actions.
-  def set_person
-    @person = Person.find(params[:id])
-  end
 
   def find_person
     @person = Person.find(params[:id])
+  end
+
+  def persons_finances
+    @finances = find_person.finances
   end
 
   def require_same_user
@@ -71,8 +74,8 @@ class PeopleController < ApplicationController
     redirect_to root_path
   end
 
-  def finances_index
-    @finances = find_person.finances
+  def first_name
+    @person = Person.first_name
   end
 
   # Only allow a list of trusted parameters through.
