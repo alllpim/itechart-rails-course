@@ -5,13 +5,14 @@ class PeopleController < ApplicationController
   before_action :require_same_user, only: %i[destroy edit update]
   before_action :find_finance, only: %i[show edit update destroy persons_finances]
 
+
   # GET /people or /people.json
   def index
     @people = current_user.person
   end
 
   # GET /people/1 or /people/1.json
-  def show; end
+  def show;end
 
   # GET /people/new
   def new
@@ -53,11 +54,17 @@ class PeopleController < ApplicationController
     redirect_to person_url
   end
 
-  def find_person
-    if @person.nil?
+  def check_person
+    if @person == nil
       redirect_to errors_not_found_path
-    else
+    end
+  end
+
+  def find_person
+    if Person.exists?(params[:id])
       @person = Person.find(params[:id])
+    else
+      redirect_to errors_not_found_path
     end
   end
 
@@ -68,7 +75,11 @@ class PeopleController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
 
   def find_finance
-    @finances = find_person.finances
+    if Finance.exists?(params[:id])
+      @finances = find_person.finances
+    else
+      redirect_to errors_not_found_path
+    end
   end
 
   def require_same_user

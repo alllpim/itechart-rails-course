@@ -13,7 +13,7 @@ class FinanceController < ApplicationController
   def update
     if @finance.update(finance_params)
       PersonsFinance.where(finance_id: @finance.id).destroy_all
-      params[:finance][:id].each do |person_id|
+      params.require(:finance).permit(:id) do |person_id|
         @finance.people << Person.find(person_id) if person_id.present?
       end
       flash[:notice] = 'Category updated'
@@ -49,7 +49,23 @@ class FinanceController < ApplicationController
     redirect_to finances_path
   end
 
+  def finance_info
+    @start_date = Date.parse(params[:transaction][:start_date])
+    @end_date = end_of_date(Date.parse(params[:transaction][:end_date]))
+    @finance = Finance.find(params[:id])
+    @transactions = Transaction.where(person_category_id: person_finance(@finance, @start_date, @end_date))
+    @sum_amount = @transactions.inject(0) { |sum, t| sum + t.amount}
+  end
+
   private
+
+  def person_finance(finance, start_date, end_date)
+    PersonsFinance.where(finance_id: finance, created_at: start_date..end_date)
+  end
+
+  def end_of_date(date)
+    date.to_datetime.end_of_day
+  end
 
   def finance_params
     params.require(:finance).permit(:name, :incomeOrExpence)
@@ -60,7 +76,11 @@ class FinanceController < ApplicationController
   end
 
   def find_finance
-    @finance = Finance.find(params[:id])
+    if Finance.exists?(params[:id])
+      @finance = Finance.find(params[:id])
+    else
+      redirect_to errors_not_found_path
+    end
   end
 
   def require_same_user
