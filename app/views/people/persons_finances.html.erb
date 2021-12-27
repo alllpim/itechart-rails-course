@@ -1,0 +1,27 @@
+<h2 class="ui center aligned icon header">
+  <i class="circular file alternate outline icon"></i>
+  Categories of <%= @person.first_name %>
+
+</h2>
+<% @finances.each do |finance| %>
+
+
+  <div class="card">
+    <div class="content">
+      <div class="card-header"><%= finance.name %> [<%= finance.incomeOrExpence ? 'Income' : 'Expence' %>]</div>
+
+      <div class="center aligned description">
+        <p class="card-title">Total amount: N/A</p>
+      </div>
+    </div>
+
+    <div class="extra content">
+      <div class="center aligned author">
+
+        <%=link_to 'Edit',edit_finance_path(finance), class:'btn btn-secondary' %>
+        <%=link_to 'Delete', finance_path(finance), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-danger'  %>
+      </div>
+    </div>
+  </div>
+
+<% end %>

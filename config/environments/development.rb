@@ -11,7 +11,7 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
-  # Show full error reports.
+  # Show full errors reports.
   config.consider_all_requests_local = true
 
   # Enable/disable caching. By default caching is disabled.
@@ -47,7 +47,7 @@ Rails.application.configure do
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = []
 
-  # Raise an error on page load if there are pending migrations.
+  # Raise an errors on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 
   # Highlight code that triggered database queries in logs.
@@ -61,7 +61,7 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
-  # Raises error for missing translations.
+  # Raises errors for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
   # Annotate rendered view with file names.
