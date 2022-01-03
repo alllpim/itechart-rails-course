@@ -1,7 +1,7 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Transactions</h1>
-
+<br>
+<%= link_to 'New Transaction', cash_transactions_choose_type_path, class:'btn btn-primary' %>
+<br><br>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -14,15 +14,16 @@
   </thead>
 
   <tbody>
-    <% @transactions.each do |transaction| %>
+    <% @cash_transactions.each do |transaction| %>
       <tr>
         <td><%= transaction.persons_finance.person.first_name %></td>
         <td><%= transaction.amount %></td>
         <td><%= transaction.persons_finance.finance.name %></td>
         <td><%= transaction.persons_finance.finance.incomeOrExpence ? 'Income' : 'Expence' %></td>
-        <td><%= link_to 'Show', transaction %></td>
-        <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
-        <td><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Note', notes_show_path(transaction), class: 'btn btn-secondary' %></td>
+        <td><%#= link_to 'Show', transaction %></td>
+        <td><%= link_to 'Edit', edit_cash_transaction_path(transaction), class: 'btn btn-secondary' %></td>
+        <td><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +31,4 @@
 
 <br>
 
-<%= link_to 'New Transaction', new_transaction_path %>
+

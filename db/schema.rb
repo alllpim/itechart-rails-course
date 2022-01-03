@@ -4,19 +4,34 @@
 #
 # This file is the source Rails uses to define your schema when running `bin/rails
 # db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
-# be faster and is potentially less errors prone than running all of your
+# be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_19_105954) do
+ActiveRecord::Schema.define(version: 2021_12_28_120459) do
+
+  create_table "cash_transactions", force: :cascade do |t|
+    t.integer "persons_finance_id"
+    t.float "amount"
+    t.boolean "is_important", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "note_id"
+  end
 
   create_table "finances", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "incomeOrExpence"
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.string "note_text"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "people", force: :cascade do |t|

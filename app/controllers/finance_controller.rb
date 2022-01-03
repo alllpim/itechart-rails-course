@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class FinanceController < ApplicationController
-  before_action :find_finance, only: %i[show edit update destroy]
+  before_action :finance_find, only: %i[show edit update destroy]
   before_action :require_same_user, only: %i[edit update destroy info]
 
   def new
@@ -12,8 +12,8 @@ class FinanceController < ApplicationController
 
   def update
     if @finance.update(finance_params)
-      PersonsFinance.where(finance_id: @finance.id).destroy_all
-      params.require(:finance).permit(:id) do |person_id|
+      PersonsFinance.where(finance_id: @finance.id)
+      params[:finance][:id].each do |person_id|
         @finance.people << Person.find(person_id) if person_id.present?
       end
       flash[:notice] = 'Category updated'
@@ -26,13 +26,13 @@ class FinanceController < ApplicationController
   def create
     @finance = Finance.new(finance_params)
     params[:finance][:id].each do |person_id|
-      @finance.people << Person.find(person_id) if person_id.present? # check for empty string in params id field
+      @finance.people << Person.find(person_id) if person_id.present?
     end
     if @finance.save
       flash[:notice] = 'Category created successfully'
       redirect_to finances_path
     else
-      render :new
+      render 'new'
     end
   end
 
@@ -50,11 +50,11 @@ class FinanceController < ApplicationController
   end
 
   def finance_info
-    @start_date = Date.parse(params[:transaction][:start_date])
-    @end_date = end_of_date(Date.parse(params[:transaction][:end_date]))
-    @finance = Finance.find(params[:id])
-    @transactions = Transaction.where(person_category_id: person_finance(@finance, @start_date, @end_date))
-    @sum_amount = @transactions.inject(0) { |sum, t| sum + t.amount}
+      @start_date = Date.today.beginning_of_month
+      @end_date = end_of_date(Date.today)
+      @finance = Finance.find(params[:id])
+      @cash_transactions = CashTransaction.where(persons_finance_id: person_finance(@finance, @start_date, @end_date))
+      @sum_amount = @cash_transactions.inject(0) { |sum, t| sum + t.amount }
   end
 
   private
@@ -71,16 +71,21 @@ class FinanceController < ApplicationController
     params.require(:finance).permit(:name, :incomeOrExpence)
   end
 
+
   def show
     @finance = Finance.find_by(id: params[:id])
   end
 
-  def find_finance
+  def finance_find
     if Finance.exists?(params[:id])
       @finance = Finance.find(params[:id])
     else
       redirect_to errors_not_found_path
     end
+  end
+
+  def check_empty_params?(params)
+    params[:cash_transaction].nil? || params[:cash_transaction][:start_date].nil? || params[:cash_transaction][:start_date].nil?
   end
 
   def require_same_user

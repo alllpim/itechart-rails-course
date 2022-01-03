@@ -3,7 +3,7 @@
 class Person < ApplicationRecord
   validates :first_name, presence: true, length: { minimum: 3, maximum: 20 }
   validates :last_name, presence: true, length: { minimum: 3, maximum: 20 }
-  validates :type_name, presence: true, length: { minimum: 3, maximum: 20 }
+  validates :type_name, presence: true, length: { minimum: 2, maximum: 20 }
 
   belongs_to :user
   has_many :persons_finances

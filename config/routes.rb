@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :transactions
+  resources :notes
+  resources :cash_transactions do
+    get 'choose_type' #to: 'cash_transactions#choose_type'
+  end
   get 'errors/not_found'
   resources :finance
   resources :people
@@ -29,12 +32,20 @@ Rails.application.routes.draw do
   get '/finances/:id', to: 'finance#finance_info', as: 'finance_info'
   post '/finances/:id', to: 'finance#finance_info'
 
-  get '/transactions', to: 'transactions#index'
+  get '/cash_transactions', to: 'cash_transactions#index'
 
-  get '/transactions/new', to: 'transactions#new'
-  post '/transactions/new', to: 'transactions#create'
+  #get '/cash_transactions/new', to: 'cash_transactions#new'
+  #get '/cash_transactions/choose_type', to: 'cash_transactions#choose_type'
 
-  get '/transactions/:id/edit', to: 'transactions#edit'
-  post '/transactions/:id/edit', to: 'transactions#update'
+  #post '/cash_transactions/new', to: 'cash_transactions#create'
+
+  get '/cash_transactions/:id/edit', to: 'cash_transactions#edit'
+  post '/cash_transactions/:id/edit', to: 'cash_transactions#update'
+
+  get '/note/:id/show', to: 'notes#show', as: 'notes_show'
+  get '/note/:id/edit', to: 'notes#edit'
+  post '/note/:id/edit', to: 'notes#edit'
+  get 'note/:id/new', to: 'notes#new', as: 'notes_new'
+
 
 end
