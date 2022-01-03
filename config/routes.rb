@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
   resources :notes
-  resources :cash_transactions do
-    get 'choose_type' #to: 'cash_transactions#choose_type'
-  end
+  get '/cash_transactions/choose_type', to: 'cash_transactions#choose_type'
+  resources :cash_transactions
   get 'errors/not_found'
   resources :finance
   resources :people
