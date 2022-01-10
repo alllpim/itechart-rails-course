@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="card-header">
+    <h2>Income</h2>
+  </div>
+  <div class="card-body">
+
+      <%= form_for :cash_transaction do |form| %>
+      <div class="card-body">
+        <div class="card-body">
+          <div class="field form-group">
+            <%= form.label 'Choose the Person and category' %>
+            <%= form.options_for_select(:persons_finance_id, PersonsFinance.where(person_id: current_user.person).map(&:show_income).compact,  class: 'btn btn-light dropdown-toggle') %>
+          </div>
+          <div class="field form-group">
+            <%= form.label 'Amount' %>
+            <%= form.text_field :amount,autofocus: true, class:"form-control", placeholder: 'Enter the amount' %>
+          </div>
+          <div class="field form-group">
+            <%= form.label 'Note' %>
+            <%= form.text_field :note, autofocus: true, class:"form-control", placeholder: 'Note' %>
+          </div>
+          <div class="field form-group">
+            <%= form.label 'Is important?' %>
+            <%= form.check_box :is_important %>
+          </div>
+          <%= form.submit "Create transaction", class: 'btn btn-secondary'%>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
