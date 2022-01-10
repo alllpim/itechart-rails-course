@@ -1,5 +1,15 @@
-<div>
-  <td><%= button_to 'Income', new_cash_transaction_path, class: 'btn btn-secondary' %></td>
-  <td><%= button_to 'Expence', new_cash_transaction_path, class: 'btn btn-secondary' %></td>
+<h2>Please, choose the type of transaction</h2>
+<br>
+<br>
+<br>
+<br>
+<div class="d-flex justify-content-center">
+  <div class="card text-center">
+    <div class="card-body">
+    <%= link_to 'Income', cash_transactions_income_path(transaction: "income"),class: 'btn btn-secondary btn-lg' %>
+      <br>
+      <br>
+    <%= link_to 'Expense', cash_transactions_expence_path(transaction: "expence"), class: 'btn btn-secondary btn-lg' %>
+    </div>
+  </div>
 </div>
-<%= link_to 'Back', cash_transactions_path %>

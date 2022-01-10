@@ -2,8 +2,8 @@
 
 class CashTransaction < ApplicationRecord
   belongs_to :persons_finance
-  belongs_to :note, optional: true
-  validates :amount, presence: true, numericality: {greater_than: 0}
+  belongs_to :note, optional:  true
+  validates :amount, presence: true, numericality: { greater_than: 0 }
   before_destroy :delete_note
 
   def delete_note

@@ -9,7 +9,7 @@
         <div class="card-body">
           <div class="field form-group">
             <%= form.label 'Choose the Person and category' %>
-            <%= form.options_for_select(:persons_finance_id, PersonsFinance.where(person_id: current_user.person).map(&:show_income).compact,  class: 'btn btn-light dropdown-toggle') %>
+            <%= form.collection_select(:persons_finance_id, PersonsFinance.person_income(current_user.person), :id, :info,{:prompt => nil,:multiple => false}, {class: 'btn btn-light dropdown-toggle'}) %>
           </div>
           <div class="field form-group">
             <%= form.label 'Amount' %>
@@ -17,8 +17,9 @@
           </div>
           <div class="field form-group">
             <%= form.label 'Note' %>
-            <%= form.text_field :note, autofocus: true, class:"form-control", placeholder: 'Note' %>
+            <%= form.text_field :note,autofocus: true, class:"form-control", placeholder: 'Note text' %>
           </div>
+
           <div class="field form-group">
             <%= form.label 'Is important?' %>
             <%= form.check_box :is_important %>

@@ -15,8 +15,13 @@
 
 <p>
   <strong>Is important:</strong>
-  <%= @cash_transaction.is_important %>
+  <%= @cash_transaction.is_important ? 'Yes' : 'No' %>
+</p>
+<p>
+  <strong>Note:</strong>
+  <%= @cash_transaction.note_id%>
 </p>
 
-<%= link_to 'Edit', edit_cash_transaction_path(@cash_transaction) %> |
-<%= link_to 'Back', cash_transactions_path %>
+
+<%= link_to 'Edit', edit_cash_transaction_path(@cash_transaction), class: 'btn btn-secondary' %> |
+<%= link_to 'Back', cash_transactions_path, class: 'btn btn-light' %>

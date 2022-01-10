@@ -1,9 +1,8 @@
-<p id="notice"><%= notice %></p>
 
 <p>
   <strong>Note text:</strong>
   <%= @note.note_text %>
 </p>
 
-<%= link_to 'Edit', edit_note_path(@note) %> |
-<%= link_to 'Back', cash_transactions_path %>
+<%= link_to 'Edit', edit_note_path(@note), class:'btn btn-light' %>
+<%= link_to 'Back', finance_info_path, class:'btn btn-light' %>
