@@ -52,9 +52,7 @@ class FinanceController < ApplicationController
   def update
     if @finance.update(finance_params)
       PersonsFinance.where(finance_id: @finance.id)
-      params[:finance][:id].each do |person_id|
-        @finance.people << Person.find(person_id) if person_id.present?
-      end
+      add_person_to_finance(@finance)
       flash[:notice] = 'Category updated'
       redirect_to finances_path
     else
@@ -69,7 +67,8 @@ class FinanceController < ApplicationController
   end
 
   def cash_transaction_filter(persons_finance)
-    filter = CashTransaction.joins('LEFT JOIN "notes" ON "notes"."id" = "cash_transactions"."note_id"').where(persons_finance_id: persons_finance)
+    filter = CashTransaction.joins('LEFT JOIN "notes" ON "notes"."id" = "cash_transactions"."note_id"')
+                            .where(persons_finance_id: persons_finance)
     filter = filter.where.not(note: nil) if !params[:with_note].nil? && (params[:with_note].values[0] == '1')
     filter
   end
@@ -105,5 +104,11 @@ class FinanceController < ApplicationController
 
     flash[:alert] = 'You can\'t do this'
     redirect_to root_path
+  end
+end
+
+def add_person_to_finance(_finance)
+  params[:finance][:id].each do |person_id|
+    @finance.people << Person.find(person_id) if person_id.present?
   end
 end
