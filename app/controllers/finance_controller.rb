@@ -37,7 +37,7 @@ class FinanceController < ApplicationController
   end
 
   def finance_info
-    if check_empty_params?(params)
+    if empty_params?(params)
       @start_date = Date.today.beginning_of_month
       @end_date = end_of_date(Date.today)
     else
@@ -93,7 +93,7 @@ class FinanceController < ApplicationController
     end
   end
 
-  def check_empty_params?(params)
+  def empty_params?(params)
     params[:cash_transaction].nil? || params[:cash_transaction][:start_date].nil? ||
       params[:cash_transaction][:start_date].nil?
   end
