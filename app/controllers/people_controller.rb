@@ -5,14 +5,13 @@ class PeopleController < ApplicationController
   before_action :require_same_user, only: %i[destroy edit update]
   before_action :find_finance, only: %i[show edit update destroy persons_finances]
 
-
   # GET /people or /people.json
   def index
     @people = current_user.person
   end
 
   # GET /people/1 or /people/1.json
-  def show;end
+  def show; end
 
   # GET /people/new
   def new
@@ -28,7 +27,7 @@ class PeopleController < ApplicationController
     @person.user = current_user
     if @person.save
       flash[:notice] = 'Person was successfully created.'
-      redirect_to person_url
+      redirect_to people_path
     else
       render :new
     end
@@ -38,7 +37,7 @@ class PeopleController < ApplicationController
   def update
     if @person.update(person_params)
       flash[:notice] = 'Person updated successfully'
-      redirect_to people_url
+      redirect_to people_path
     else
       render :edit
     end
@@ -51,13 +50,7 @@ class PeopleController < ApplicationController
     else
       flash[:alert] = 'You can\'t do this. It\'s your last person'
     end
-    redirect_to person_url
-  end
-
-  def check_person
-    if @person == nil
-      redirect_to errors_not_found_path
-    end
+    redirect_to people_path
   end
 
   def find_person

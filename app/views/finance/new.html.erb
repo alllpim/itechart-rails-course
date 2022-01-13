@@ -18,7 +18,11 @@
               <%= f.check_box :incomeOrExpence, placeholder: 'Income' %>
             </div>
             <%= f.label 'List of person' %>
-            <%= f.collection_select(:id, current_user.person.order(:first_name),:id,:first_name, {:prompt => nil}, {:multiple => true})%>
+            <%#= f.collection_select(:id, current_user.person.order(:first_name),:id,:first_name, {:prompt => nil,:multiple => true}, {class:'btn btn-light dropdown-toggle'})%>
+            <%= f.collection_check_boxes(:id, current_user.person.order(:first_name),:id,:first_name)%>
+            <br>
+
+
           </div>
 
           <%= f.submit "Create finance", class: 'btn btn-secondary'%>

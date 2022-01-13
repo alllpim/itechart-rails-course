@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-header">
-    <h4>Create Finance</h4>
+    <h4>Edit Finance</h4>
   </div>
   <div class="card-body">
 
@@ -12,11 +12,12 @@
           <div class="field form-group">
             <%= f.label :name %>
             <%= f.text_field :name,autofocus: true, class:"form-control", placeholder: 'Type' %>
-            <div class="field">
+            <div class="field form-group">
               <br>
               <%= f.label 'Income' %>
               <%= f.check_box :incomeOrExpence, placeholder: 'Income' %>
             </div>
+            <div class="field form-group">
             <%= f.label 'List of person' %>
             <%= f.collection_select(:id, current_user.person.order(:first_name),:id,:first_name, {:prompt => nil}, {:multiple => true}) %>
           </div>
@@ -27,4 +28,5 @@
     <% end %>
 
   </div>
+</div>
 </div>

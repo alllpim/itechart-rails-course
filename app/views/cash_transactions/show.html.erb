@@ -1,0 +1,27 @@
+<p>
+  <strong>Person:</strong>
+  <%= @cash_transaction.persons_finance.person.first_name %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @cash_transaction.persons_finance.finance.name %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @cash_transaction.amount %>
+</p>
+
+<p>
+  <strong>Is important:</strong>
+  <%= @cash_transaction.is_important ? 'Yes' : 'No' %>
+</p>
+<p>
+  <strong>Note:</strong>
+  <%= @cash_transaction.note_id%>
+</p>
+
+
+<%= link_to 'Edit', edit_cash_transaction_path(@cash_transaction), class: 'btn btn-secondary' %> |
+<%= link_to 'Back', cash_transactions_path, class: 'btn btn-light' %>

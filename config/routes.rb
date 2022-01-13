@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
-  resources :transactions
+  resources :notes
+
+  get '/cash_transactions/income', to: 'cash_transactions#new'
+  post '/cash_transactions/income', to: 'cash_transactions#income'
+
+  get '/cash_transactions/expence', to: 'cash_transactions#new'
+  post '/cash_transactions/expence', to: 'cash_transactions#expence'
+
+  get '/cash_transactions/choose_type', to: 'cash_transactions#choose_type'
+  get '/cash_transactions/important_transaction', to: 'cash_transactions#important_transaction', as: 'important_transaction'
+  resources :cash_transactions
   get 'errors/not_found'
   resources :finance
   resources :people
@@ -26,15 +36,21 @@ Rails.application.routes.draw do
 
   get '/people/:id/finances', to: 'people#persons_finances', as: 'people_persons_finances'
 
-  get '/finances/:id', to: 'finance#finance_info', as: 'finance_info'
-  post '/finances/:id', to: 'finance#finance_info'
+  get '/finances/:id/finance_info', to: 'finance#finance_info', as: 'finance_info'
+  post '/finances/:id/finance_info', to: 'finance#finance_info'
 
-  get '/transactions', to: 'transactions#index'
+  get '/cash_transactions', to: 'cash_transactions#index'
 
-  get '/transactions/new', to: 'transactions#new'
-  post '/transactions/new', to: 'transactions#create'
+  get '/cash_transactions/:id/edit', to: 'cash_transactions#edit'
+  post '/cash_transactions/:id/edit', to: 'cash_transactions#update'
 
-  get '/transactions/:id/edit', to: 'transactions#edit'
-  post '/transactions/:id/edit', to: 'transactions#update'
+
+
+  get '/note/:id/show', to: 'notes#show', as: 'notes_show'
+  get '/note/:id/edit', to: 'notes#edit'
+  post '/note/:id/edit', to: 'notes#edit'
+  get 'note/:id/new', to: 'notes#new'
+  post 'note/:id/new', to: 'notes#create'
+
 
 end

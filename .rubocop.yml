@@ -1,9 +1,6 @@
 Style/Documentation:
   Enabled: false
 
-
-
-
 AllCops:
   Exclude:
     - db/**/*
@@ -13,3 +10,7 @@ AllCops:
     - test/**/*
     - app/views/**/*
     - config.ru
+
+Metrics/AbcSize:
+  IgnoredMethods:
+    - 'finance_info'
