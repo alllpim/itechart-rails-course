@@ -14,3 +14,4 @@ AllCops:
 Metrics/AbcSize:
   IgnoredMethods:
     - 'finance_info'
+    - 'index'

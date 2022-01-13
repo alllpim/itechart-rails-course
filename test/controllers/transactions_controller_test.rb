@@ -6,25 +6,25 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    get transactions_url
+    get cash_transactions_url
     assert_response :success
   end
 
   test "should get new" do
-    get new_cashTransaction_url
+    get new_cash_transaction_url
     assert_response :success
   end
 
   test "should create cash_transactions" do
     assert_difference('cash_transactions.count') do
-      post transactions_url, params: { cash_transactions: { amount: @cash_transactions.amount, is_important: @cash_transactions.is_important, persons_finance_id: @cash_transactions.persons_finance_id } }
+      post cash_transactions_url, params: { cash_transactions: { amount: @cash_transactions.amount, is_important: @cash_transactions.is_important, persons_finance_id: @cash_transactions.persons_finance_id } }
     end
 
-    assert_redirected_to cashTransaction_url(CashTransaction.last)
+    assert_redirected_to cash_transaction_url(CashTransaction.last)
   end
 
   test "should show cash_transactions" do
-    get cashTransaction_url(@cash_transactions)
+    get cash_transaction_url(@cash_transactions)
     assert_response :success
   end
 

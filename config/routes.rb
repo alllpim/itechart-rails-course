@@ -44,13 +44,13 @@ Rails.application.routes.draw do
   get '/cash_transactions/:id/edit', to: 'cash_transactions#edit'
   post '/cash_transactions/:id/edit', to: 'cash_transactions#update'
 
-
-
   get '/note/:id/show', to: 'notes#show', as: 'notes_show'
   get '/note/:id/edit', to: 'notes#edit'
   post '/note/:id/edit', to: 'notes#edit'
   get 'note/:id/new', to: 'notes#new'
   post 'note/:id/new', to: 'notes#create'
 
+  get '/charts', to: 'charts#index'
+  post '/charts', to: 'charts#index'
 
 end
