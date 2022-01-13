@@ -4,12 +4,16 @@
 // that code so it'll be compiled.
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require_tree
+//= require Chart.bundle
+//= require chartkick
 
 import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
+import "chartkick/chart.js"
+import "chartkick"
 
 Rails.start()
 Turbolinks.start()
