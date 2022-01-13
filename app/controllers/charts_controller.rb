@@ -10,8 +10,8 @@ class ChartsController < ApplicationController
       @end_date = end_of_date(Date.parse(params[:cash_transaction][:end_date]))
     end
     @finances = current_user.person.collect(&:finances).flatten.uniq
-    @income_chart = get_income(@start_date, @end_date)
-    @expence_chart = get_expence(@start_date, @end_date)
+    @income_transactions_for_chart = transactions_by_date(@start_date, @end_date, true)
+    @expence_transactions_for_chart = transactions_by_date(@start_date, @end_date, false)
   end
 
   private
@@ -26,23 +26,13 @@ class ChartsController < ApplicationController
     date.to_datetime.end_of_day
   end
 
-  def get_income(start_date, end_date)
-    income_transactions = []
-    finances = Finance.where(incomeOrExpence: true)
+  def transactions_by_date(start_date, end_date, income)
+    transactions = []
+    finances = Finance.where(incomeOrExpence: income)
     finances.each do |finance|
-      income_transactions += [[finance.name, CashTransaction.where(persons_finance_id: finance.persons_finances,
-                                                                   created_at: start_date..end_date).sum(:amount)]]
+      transactions += [[finance.name, CashTransaction.where(persons_finance_id: finance.persons_finances,
+                                                            created_at: start_date..end_date).sum(:amount)]]
     end
-    income_transactions
-  end
-
-  def get_expence(start_date, end_date)
-    income_transactions = []
-    finances = Finance.where(incomeOrExpence: false)
-    finances.each do |finance|
-      income_transactions += [[finance.name, CashTransaction.where(persons_finance_id: finance.persons_finances,
-                                                                   created_at: start_date..end_date).sum(:amount)]]
-    end
-    income_transactions
+    transactions
   end
 end
